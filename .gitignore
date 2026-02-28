@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Secrets / local config
+.env
+*.pem
+*.pfx
+*.key
+*.cer
+secrets/
+**/*secret*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Data files (keep Kaggle raw data out of repo)
+data/
+*.csv
+*.parquet
