@@ -13,6 +13,7 @@ CREATE TABLE dbo.stg_online_retail (
     InvoiceDate DATETIME      NULL,
     UnitPrice   DECIMAL(10,2) NULL,
     CustomerID  NVARCHAR(20)  NULL,
-    Country     NVARCHAR(100) NULL,
-    updated_at  DATETIME2     NULL
+    Country     NVARCHAR(100) NULL,    updated_at  DATETIME2     NULL
+
 );
+GO
