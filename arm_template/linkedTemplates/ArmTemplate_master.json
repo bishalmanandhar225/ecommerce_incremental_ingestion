@@ -1,0 +1,77 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "factoryName": {
+            "type": "string",
+            "metadata": "Data Factory name",
+            "defaultValue": "ecom-adf-feb27"
+        },
+        "ls_azuresql_ecom_password": {
+            "type": "secureString",
+            "metadata": "Secure string for 'password' of 'ls_azuresql_ecom'"
+        },
+        "ls_blob_ecom_connectionString": {
+            "type": "secureString",
+            "metadata": "Secure string for 'connectionString' of 'ls_blob_ecom'"
+        },
+        "ls_azuresql_ecom_properties_typeProperties_server": {
+            "type": "string",
+            "defaultValue": "ecomsqlserverfeb27.database.windows.net"
+        },
+        "ls_azuresql_ecom_properties_typeProperties_database": {
+            "type": "string",
+            "defaultValue": "ecomdb"
+        },
+        "ls_azuresql_ecom_properties_typeProperties_userName": {
+            "type": "string",
+            "defaultValue": "sqladmin"
+        },
+        "containerUri": {
+            "type": "string",
+            "metadata": "URI to storage account containing linked ARM templates"
+        },
+        "containerSasToken": {
+            "type": "string",
+            "metadata": "Sas token to storage account containing linked ARM templates"
+        }
+    },
+    "variables": {
+        "factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+    },
+    "resources": [
+        {
+            "name": "ecom-adf-feb27_ArmTemplate_0",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2024-03-01",
+            "properties": {
+                "mode": "incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "factoryName": {
+                        "value": "[parameters('factoryName')]"
+                    },
+                    "ls_azuresql_ecom_password": {
+                        "value": "[parameters('ls_azuresql_ecom_password')]"
+                    },
+                    "ls_blob_ecom_connectionString": {
+                        "value": "[parameters('ls_blob_ecom_connectionString')]"
+                    },
+                    "ls_azuresql_ecom_properties_typeProperties_server": {
+                        "value": "[parameters('ls_azuresql_ecom_properties_typeProperties_server')]"
+                    },
+                    "ls_azuresql_ecom_properties_typeProperties_database": {
+                        "value": "[parameters('ls_azuresql_ecom_properties_typeProperties_database')]"
+                    },
+                    "ls_azuresql_ecom_properties_typeProperties_userName": {
+                        "value": "[parameters('ls_azuresql_ecom_properties_typeProperties_userName')]"
+                    }
+                }
+            },
+            "dependsOn": []
+        }
+    ]
+}
