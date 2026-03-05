@@ -15,3 +15,4 @@ BEGIN
     WHERE s.StockCode IS NOT NULL
     GROUP BY s.StockCode;
 END;
+GO

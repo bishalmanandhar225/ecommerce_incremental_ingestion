@@ -12,13 +12,13 @@
             "value": ""
         },
         "ls_azuresql_ecom_properties_typeProperties_server": {
-            "value": "ecomsqlserverfeb27.database.windows.net"
+            "value": "ecomsqlserver.database.windows.net"
         },
         "ls_azuresql_ecom_properties_typeProperties_database": {
             "value": "ecomdb"
         },
         "ls_azuresql_ecom_properties_typeProperties_userName": {
-            "value": "sqladmin"
+            "value": "sqldmin"
         },
         "containerUri": {
             "value": ""

@@ -6,6 +6,16 @@ This project demonstrates an **end-to-end Azure Data Engineering pipeline** that
 
 The pipeline automates the flow of data from raw files into a structured **star schema** consisting of dimension and fact tables.
 
+## Dataset
+
+This project uses the **Online Retail dataset** available on Kaggle.
+
+Source:  
+https://www.kaggle.com/datasets/lakshmi25npathi/online-retail-dataset
+
+The dataset contains transactional retail data including invoice number, product information, quantity, price, and customer details.
+
+The raw CSV file is uploaded to **Azure Blob Storage** and ingested into the data warehouse pipeline.
 ---
 
 ## Architecture
@@ -152,8 +162,6 @@ In production systems, this pattern is often replaced with **incremental loading
 ```
 sql/            SQL scripts for tables and stored procedures
 arm_template/   ARM deployment templates
-data/           Sample dataset
-docs/           Project documentation
 screenshots/    Pipeline execution screenshots
 ```
 ---
