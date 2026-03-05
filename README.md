@@ -1,4 +1,4 @@
-# Retail Data Warehouse Pipeline on Azure
+# Retail Data Warehouse Pipeline on Azure (ADF + Azure SQL)
 
 ## Overview
 
@@ -10,21 +10,22 @@ The pipeline automates the flow of data from raw files into a structured **star 
 
 ## Architecture
 ### Pipeline Flow
-        CSV File (Raw Data)
+        Azure Storage (Raw CSV)
                 ↓
         Azure Data Factory - Copy Activity
                 ↓
         Azure SQL - Staging Table (stg_online_retail)
                 ↓
-        Stored Procedures
+        Stored Procedures (Transformation)
                 ↓
-        Dimensional Model
+        Data Warehouse (Star Schema)
         ├── dim_customer
         ├── dim_product
         └── fact_sales
 
+![Architecture](screenshots/architecture.png)
 
-**Azure Data Factory orchestrates the full pipeline execution.**
+Azure Data Factory orchestrates the full pipeline execution.
 
 ---
 
@@ -49,7 +50,10 @@ The warehouse follows a **Star Schema** design.
 The model consists of **dimension tables** and a **fact table** used for analytical queries.
 
 ---
+## Star Schema
 
+![Star Schema](screenshots/star_schema.png)
+---
 ## Staging Table
 ### stg_online_retail
 
@@ -141,7 +145,6 @@ data/           Sample dataset
 docs/           Project documentation
 screenshots/    Pipeline execution screenshots
 ```
-
 ---
 
 ## Result
