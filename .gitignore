@@ -19,5 +19,8 @@ Thumbs.db
 
 # Data files (keep Kaggle raw data out of repo)
 data/
+*.bak
 *.csv
+*.log
+
 *.parquet
