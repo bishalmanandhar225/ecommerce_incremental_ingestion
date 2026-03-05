@@ -1,161 +1,138 @@
+# Azure Data Engineering Pipeline - Online Retail Data Warehouse
 
-Azure Data Engineering Pipeline - Online Retail Data Warehouse
-Overview
+## Overview
 
-This project demonstrates an end-to-end Azure Data Engineering pipeline that ingests raw retail transaction data, loads it into a staging table, and builds a dimensional data warehouse using Azure SQL and Azure Data Factory.
+This project demonstrates an **end-to-end Azure Data Engineering pipeline** that ingests raw retail transaction data, loads it into a staging table, and builds a **dimensional data warehouse** using **Azure SQL** and **Azure Data Factory**.
 
-The pipeline automates the flow of data from raw files into a structured star schema consisting of dimension and fact tables.
+The pipeline automates the flow of data from raw files into a structured **star schema** consisting of dimension and fact tables.
 
-Architecture
+---
 
-Pipeline flow:
+## Architecture
+### Pipeline Flow
+        CSV File (Raw Data)
+                ↓
+        Azure Data Factory - Copy Activity
+                ↓
+        Azure SQL - Staging Table (stg_online_retail)
+                ↓
+        Stored Procedures
+                ↓
+        Dimensional Model
+        ├── dim_customer
+        ├── dim_product
+        └── fact_sales
 
-CSV File (Raw Data)
-        ↓
-Azure Data Factory - Copy Activity
-        ↓
-Azure SQL - Staging Table
-        ↓
-Stored Procedures
-        ↓
-Dimensional Model
-   ├── dim_customer
-   ├── dim_product
-   └── fact_sales
 
-ADF orchestrates the full pipeline execution.
+**Azure Data Factory orchestrates the full pipeline execution.**
 
-Technologies Used
-Component	Technology
-Cloud Platform	Microsoft Azure
-Orchestration	Azure Data Factory
-Data Warehouse	Azure SQL Database
-Data Storage	CSV Dataset
-Data Modeling	Star Schema
-Version Control	Git + GitHub
-Deployment	ARM Template
-Data Model
+---
 
-The warehouse follows a star schema design.
+## Technologies Used
 
-Dimension Tables
+| Component | Technology |
+|---|---|
+| Cloud Platform | Microsoft Azure |
+| Orchestration | Azure Data Factory |
+| Data Warehouse | Azure SQL Database |
+| Data Storage | CSV Dataset |
+| Data Modeling | Star Schema |
+| Version Control | Git + GitHub |
+| Deployment | ARM Templates |
 
-dim_customer
+---
 
-Column	Description
-customer_key	Surrogate key
-CustomerID	Business key
-Country	Customer country
-updated_at	Load timestamp
+## Data Warehouse Design
 
-dim_product
+The warehouse follows a **Star Schema** design.
 
-Column	Description
-product_key	Surrogate key
-StockCode	Product identifier
-Description	Product description
-UnitPrice	Price
-updated_at	Load timestamp
-Fact Table
+The model consists of **dimension tables** and a **fact table** used for analytical queries.
 
-fact_sales
+---
 
-Column	Description
-sales_key	Surrogate key
-customer_key	FK to dim_customer
-product_key	FK to dim_product
-InvoiceDate	Transaction date
-Quantity	Units sold
-UnitPrice	Price
-updated_at	Load timestamp
-Pipeline Workflow
+## Staging Table
+### stg_online_retail
 
-The Azure Data Factory pipeline performs the following steps:
+This table stores **raw data loaded from the CSV file** before transformation.
 
-Copy Activity
+| Column | Description |
+|---|---|
+| InvoiceNo | Invoice number |
+| StockCode | Product identifier |
+| Description | Product description |
+| Quantity | Quantity sold |
+| InvoiceDate | Transaction date |
+| UnitPrice | Price per unit |
+| CustomerID | Customer identifier |
+| Country | Customer country |
+| updated_at | Load timestamp |
 
-Loads CSV retail dataset into staging table stg_online_retail.
+---
 
-Load Customer Dimension
+## Dimension Tables
+### dim_customer
 
-Executes stored procedure sp_load_dim_customer.
+| Column | Description |
+|---|---|
+| customer_key | Surrogate key |
+| CustomerID | Business key |
+| Country | Customer country |
+| updated_at | Load timestamp |
 
-Load Product Dimension
+---
 
-Executes stored procedure sp_load_dim_product.
+### dim_product
 
-Load Fact Table
+| Column | Description |
+|---|---|
+| product_key | Surrogate key |
+| StockCode | Product business key |
+| Description | Product description |
+| UnitPrice | Product price |
+| updated_at | Load timestamp |
 
-Executes stored procedure sp_load_fact_sales.
+---
 
-Each stored procedure truncates the target table and reloads it from staging.
+## Fact Table
+### fact_sales
 
-Project Structure
-project-root
-│
-├── adf/
-│
-├── arm_template/
-│   ├── factory/
-│   ├── linkedTemplates/
-│   ├── ARMTemplateForFactory.json
-│   └── ARMTemplateParametersForFactory.json
-│
-├── sql/
-│   ├── 01_staging.sql
-│   ├── 02_dimensional_model.sql
-│   └── 03_stored_procedures.sql
-│
-├── data/
-│
-├── screenshots/
-│   └── pipeline_success.png
-│
-├── docs/
-│
-└── README.md
-Pipeline Execution
+| Column | Description |
+|---|---|
+| sales_key | Surrogate key |
+| customer_key | Foreign key to dim_customer |
+| product_key | Foreign key to dim_product |
+| InvoiceDate | Transaction date |
+| Quantity | Quantity sold |
+| UnitPrice | Price per unit |
+| updated_at | Load timestamp |
 
-Example successful pipeline run:
+---
 
-Data Validation
+## Pipeline Execution Steps
 
-Row counts after pipeline execution:
+1. Raw **CSV dataset** is uploaded.
+2. **Azure Data Factory Copy Activity** loads the data into `stg_online_retail`.
+3. Stored procedures transform the staging data into **dimension tables**.
+4. The **fact table** is populated using keys from the dimension tables.
+5. The pipeline completes the **end-to-end data warehouse load process**.
 
-Table	Row Count
-stg_online_retail	1,067,371
-dim_customer	5,942
-dim_product	5,131
-fact_sales	824,364
+---
 
-Fact rows exclude transactions where CustomerID is NULL.
+## Repository Structure
+adf/ Azure Data Factory pipeline JSON
+sql/ SQL scripts for tables and stored procedures
+arm_template/ ARM deployment templates
+data/ Sample dataset
+docs/ Project documentation
+screenshots/ Pipeline execution screenshots
 
-Key Concepts Demonstrated
+---
 
-Azure Data Factory orchestration
+## Result
+The pipeline successfully loads retail transaction data into a **structured star schema data warehouse** and automates the **data ingestion and transformation process** using Azure Data Factory.
 
-Data warehouse dimensional modeling
+---
 
-Star schema design
+## Author
 
-Stored procedure based transformations
-
-Staging layer pattern
-
-End-to-end pipeline automation
-
-Infrastructure export using ARM templates
-
-Future Improvements
-
-Possible enhancements:
-
-Incremental loading using watermark columns
-
-Replace TRUNCATE with MERGE logic
-
-Partitioning strategy for fact tables
-
-Monitoring and alerting framework
-
-CI/CD deployment pipeline
+**Bishal Manandhar**
