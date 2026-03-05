@@ -133,12 +133,14 @@ In production systems, this pattern is often replaced with **incremental loading
 
 ---
 ## Repository Structure
-adf/ Azure Data Factory pipeline JSON
-sql/ SQL scripts for tables and stored procedures
-arm_template/ ARM deployment templates
-data/ Sample dataset
-docs/ Project documentation
-screenshots/ Pipeline execution screenshots
+```
+adf/            Azure Data Factory pipeline JSON
+sql/            SQL scripts for tables and stored procedures
+arm_template/   ARM deployment templates
+data/           Sample dataset
+docs/           Project documentation
+screenshots/    Pipeline execution screenshots
+```
 
 ---
 
