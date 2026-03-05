@@ -1,4 +1,4 @@
-# Azure Data Engineering Pipeline - Online Retail Data Warehouse
+# Retail Data Warehouse Pipeline on Azure
 
 ## Overview
 
@@ -117,7 +117,21 @@ This table stores **raw data loaded from the CSV file** before transformation.
 5. The pipeline completes the **end-to-end data warehouse load process**.
 
 ---
+## Load Strategy
 
+The current pipeline uses a **full refresh loading strategy**.
+
+During each pipeline execution, the stored procedures truncate the dimension and fact tables and rebuild them from the staging table.
+
+This approach was used to:
+
+- simplify the initial warehouse build
+- validate end-to-end pipeline execution
+- avoid duplicate records during development
+
+In production systems, this pattern is often replaced with **incremental loading strategies** using techniques such as watermark columns (`updated_at`) or `MERGE` operations to process only new or updated records.
+
+---
 ## Repository Structure
 adf/ Azure Data Factory pipeline JSON
 sql/ SQL scripts for tables and stored procedures
