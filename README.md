@@ -28,7 +28,19 @@ The pipeline automates the flow of data from raw files into a structured **star 
 Azure Data Factory orchestrates the full pipeline execution.
 
 ---
+## ADF Pipeline
 
+![ADF Pipeline](screenshots/pipeline_adf.png)
+
+---
+## Pipeline Execution
+
+The pipeline was executed successfully in Azure Data Factory.  
+All activities completed without errors.
+
+![Pipeline Run](screenshots/pipeline_run.png)
+
+---
 ## Technologies Used
 
 | Component | Technology |
@@ -138,7 +150,6 @@ In production systems, this pattern is often replaced with **incremental loading
 ---
 ## Repository Structure
 ```
-adf/            Azure Data Factory pipeline JSON
 sql/            SQL scripts for tables and stored procedures
 arm_template/   ARM deployment templates
 data/           Sample dataset
